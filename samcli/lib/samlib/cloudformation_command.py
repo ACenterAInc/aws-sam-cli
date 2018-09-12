@@ -14,6 +14,7 @@ def execute_command(command, args):
     LOG.debug("%s command is called", command)
     try:
         aws_cmd = 'aws' if platform.system().lower() != 'windows' else 'aws.cmd'
+        print "TEST ", command
         subprocess.check_call([aws_cmd, 'cloudformation', command] + list(args))
         LOG.debug("%s command successful", command)
     except subprocess.CalledProcessError as e:

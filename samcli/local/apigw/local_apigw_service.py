@@ -5,6 +5,9 @@ import logging
 import base64
 
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
+
+
 
 from samcli.local.services.base_local_service import BaseLocalService, LambdaOutputParser, CaseInsensitiveDict
 from samcli.local.lambdafn.exceptions import FunctionNotFound
@@ -67,6 +70,7 @@ class LocalApigwService(BaseLocalService):
                           static_url_path="",  # Mount static files at root '/'
                           static_folder=self.static_dir  # Serve static files from this directory
                           )
+        cors = CORS(self._app)
 
         for api_gateway_route in self.routing_list:
             path = PathConverter.convert_path_to_flask(api_gateway_route.path)
